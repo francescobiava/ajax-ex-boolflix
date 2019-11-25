@@ -9,6 +9,28 @@
 </head>
 <body>
   
+  <!-- searchbar -->
+  <header>
+    <input type="text" placeholder="Search...">
+    <button>Search</button>
+  </header>
+
+  <!-- main -->
+  <main>
+
+  </main>
+
+  <!-- template movie -->
+  <script id="movie-template" type="text/x-handlebars-template">
+    <ul class="movie">
+      <li class="title">{{title}}</li>
+      <li class="original-title">{{original-title}}</li>
+      <li class="language">{{language}}</li>
+      <li class="rating">{{rating}}</li>
+    </ul>
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.4.2/handlebars.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>

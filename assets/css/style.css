@@ -1,5 +1,20 @@
+/* GENERAL */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* header */
+header {
+  padding: 25px;
+}
+
+/* main */
+main {
+  padding: 25px;
+}
+
+.movie {
+  margin-bottom: 50px;
 }
