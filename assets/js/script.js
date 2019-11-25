@@ -10,13 +10,15 @@ function searchMovies () {
   $('#search').click(function () {
     // pulisco la pagina
     $('main').html('');
-    // recupero l'input dell'utente
+    // recupero l'input dell'utente e svuoto la casella
     var input = $('#input-search').val();
+    $('#input-search').val('');
     // se l'input non è vuoto faccio la ricerca
     if (input !== '') {
       ajaxMovies(input);
     }
   });
+  // quando premo enter nell'input clicco su search
   $('#input-search').keypress(function (event) {
     if (event.keyCode == 13) {
       $('#search').click();
