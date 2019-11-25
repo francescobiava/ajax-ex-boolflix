@@ -17,6 +17,11 @@ function searchMovies () {
       ajaxMovies(input);
     }
   });
+  $('#input-search').keypress(function (event) {
+    if (event.keyCode == 13) {
+      $('#search').click();
+    }
+  });
 }
 
 // funzione per chiamata ajax e stampa risultati
