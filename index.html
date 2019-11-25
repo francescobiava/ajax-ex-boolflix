@@ -11,8 +11,8 @@
   
   <!-- searchbar -->
   <header>
-    <input type="text" placeholder="Search...">
-    <button>Search</button>
+    <input id='input-search' type="text" placeholder="Search...">
+    <button id="search">Search</button>
   </header>
 
   <!-- main -->
@@ -24,9 +24,9 @@
   <script id="movie-template" type="text/x-handlebars-template">
     <ul class="movie">
       <li class="title">{{title}}</li>
-      <li class="original-title">{{original-title}}</li>
-      <li class="language">{{language}}</li>
-      <li class="rating">{{rating}}</li>
+      <li class="original-title">{{original_title}}</li>
+      <li class="language">{{original_language}}</li>
+      <li class="rating">{{vote_average}}</li>
     </ul>
   </script>
 
