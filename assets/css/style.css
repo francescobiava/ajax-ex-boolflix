@@ -63,10 +63,11 @@ main {
 
 .item {
   margin: 20px;
-  width: calc((100% - 120px) / 3);
+  width: 250px;
+  height: 400px;
   padding: 25px 10px;
-  border: 1px solid #fff;
   color: #fff;
+  position: relative;
 }
 
 .item li {
@@ -75,6 +76,23 @@ main {
 
 .item li span {
   font-weight: 1000;
+}
+
+.item .poster {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: all 0.5s;
+}
+
+.item .poster:hover {
+  cursor: pointer;
+  opacity: 0;
+}
+
+.item .poster img {
+  width: 250px;
+  height: 400px;
 }
 
 .flag {

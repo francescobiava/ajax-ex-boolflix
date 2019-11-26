@@ -92,8 +92,15 @@ function printMovies (elements) {
     } else if (lang == 'it') {
       lang = '<img Class="flag" src="assets/img/it-flag.png">'
     }
+    // recupero l'immagine del poster
+    if (element.poster_path === null) {
+      var poster = 'assets/img/empty-poster.jpg';
+    } else {
+      var poster = 'https://image.tmdb.org/t/p/w342/' + element.poster_path;
+    }
     // inserisco nel template e appendo in pagina
     var item = {
+      poster: poster,
       title: element.title,
       original_title: element.original_title,
       original_language: lang,
@@ -129,9 +136,16 @@ function printSeries (elements) {
       lang = '<img class="flag" src="assets/img/uk-flag.png">'
     } else if (lang == 'it') {
       lang = '<img class="flag" src="assets/img/it-flag.png">'
-    }    
+    }
+    // recupero l'immagine del poster
+    if (element.poster_path === null) {
+      var poster = 'assets/img/empty-poster.jpg';
+    } else {
+      var poster = 'https://image.tmdb.org/t/p/w342/' + element.poster_path;
+    }
     // inserisco nel template e appendo in pagina
     var item = {
+      poster: poster,
       title: element.name,
       original_title: element.original_name,
       original_language: lang,
