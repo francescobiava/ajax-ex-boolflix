@@ -40,14 +40,18 @@ function ajaxMovies (input) {
     success: function (data) {
       // mi salvo tutti i risultati in una var
       var movies = data.results;
-      // ciclio per ogni risultato
+      // compilo handlebars
+      var source = $('#movie-template').html();
+      var template = Handlebars.compile(source);
+      // ciclo per ogni risultato
       movies.forEach(function(item) {
         // inserisco nel template e appendo in pagina
-        var source = $('#movie-template').html();
-        var template = Handlebars.compile(source);
         var html = template(item);
         $('main').append(html);
       });
+    },
+    error: function (error) {
+      alert('Errore:', error);
     }
   });
 }
