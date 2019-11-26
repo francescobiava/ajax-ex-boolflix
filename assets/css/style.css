@@ -76,3 +76,7 @@ main {
 .item li span {
   font-weight: 1000;
 }
+
+.flag {
+  width: 1.2em;
+}

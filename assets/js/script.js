@@ -85,11 +85,18 @@ function printMovies (elements) {
       stars += '<i class="far fa-star"></i>';
       i++;
     }
+    // recupero la lingua originale e se possibile assegno la bandiera
+    var lang = element.original_language;
+    if (lang == 'en') {
+      lang = '<img class="flag" src="assets/img/uk-flag.png">'
+    } else if (lang == 'it') {
+      lang = '<img Class="flag" src="assets/img/it-flag.png">'
+    }
     // inserisco nel template e appendo in pagina
     var item = {
       title: element.title,
       original_title: element.original_title,
-      original_language: element.original_language,
+      original_language: lang,
       vote_average: stars
     }
     var html = template(item);
@@ -116,11 +123,18 @@ function printSeries (elements) {
       stars += '<i class="far fa-star"></i>';
       i++;
     }
+    // recupero la lingua originale e se possibile assegno la bandiera
+    var lang = element.original_language;
+    if (lang == 'en') {
+      lang = '<img class="flag" src="assets/img/uk-flag.png">'
+    } else if (lang == 'it') {
+      lang = '<img class="flag" src="assets/img/it-flag.png">'
+    }    
     // inserisco nel template e appendo in pagina
     var item = {
       title: element.name,
       original_title: element.original_name,
-      original_language: element.original_language,
+      original_language: lang,
       vote_average: stars
     }
     var html = template(item);
