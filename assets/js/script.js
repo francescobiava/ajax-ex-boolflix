@@ -104,7 +104,8 @@ function printMovies (elements) {
       title: element.title,
       original_title: element.original_title,
       original_language: lang,
-      vote_average: stars
+      vote_average: stars,
+      overview: element.overview
     }
     var html = template(item);
     $('main').append(html);
@@ -149,7 +150,8 @@ function printSeries (elements) {
       title: element.name,
       original_title: element.original_name,
       original_language: lang,
-      vote_average: stars
+      vote_average: stars,
+      overview: element.overview
     }
     var html = template(item);
     $('main').append(html);
