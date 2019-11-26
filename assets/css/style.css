@@ -68,6 +68,13 @@ main {
   padding: 25px 10px;
   color: #fff;
   position: relative;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.item::-webkit-scrollbar {
+  display: none;
 }
 
 .item li {
