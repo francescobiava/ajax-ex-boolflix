@@ -40,19 +40,43 @@ function ajaxMovies (input) {
     success: function (data) {
       // mi salvo tutti i risultati in una var
       var movies = data.results;
-      // compilo handlebars
-      var source = $('#movie-template').html();
-      var template = Handlebars.compile(source);
-      // ciclo per ogni risultato
-      movies.forEach(function(item) {
-        // inserisco nel template e appendo in pagina
-        var html = template(item);
-        $('main').append(html);
-      });
+      print (movies);
     },
     error: function (error) {
       alert('Errore:', error);
     }
+  });
+}
+
+function print (movies) {
+  // compilo handlebars
+  var source = $('#movie-template').html();
+  var template = Handlebars.compile(source);
+  // ciclo per ogni risultato
+  movies.forEach(function(item) {
+    // recupero la valutazione e trasformo in 0/5
+    var rating = item.vote_average / 2;
+    console.log(rating);
+    
+    var stars = '';
+    // inserisco il numero di stelle della valutazione
+    for (var i = 0; i < rating; i++) {
+      stars += '<i class="fas fa-star"></i>';
+    }
+    // inserisco le stelle vuote per arrivare al massimo della valuazione
+    while (i < 5) {
+      stars += '<i class="far fa-star"></i>';
+      i++;
+    }
+    // inserisco nel template e appendo in pagina
+    var movie = {
+      title: item.title,
+      original_title: item.original_title,
+      original_language: item.original_language,
+      vote_average: stars
+    }
+    var html = template(movie);
+    $('main').append(html);
   });
 }
 
