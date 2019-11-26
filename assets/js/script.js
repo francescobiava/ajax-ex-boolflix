@@ -1,12 +1,12 @@
 $(document).ready(function () {
   
-  searchMovies();
+  search();
 
 });
 
 // FUNCTIONS
 // funzione al click sul bottone search
-function searchMovies () {
+function search () {
   $('#search').click(function () {
     // pulisco la pagina
     $('main').html('');
@@ -15,7 +15,7 @@ function searchMovies () {
     $('#input-search').val('');
     // se l'input non è vuoto faccio la ricerca
     if (input !== '') {
-      ajaxMovies(input);
+      ajaxCall(input);
     }
   });
   // quando premo enter nell'input clicco su search
@@ -26,8 +26,8 @@ function searchMovies () {
   });
 }
 
-// funzione per chiamata ajax e stampa risultati
-function ajaxMovies (input) {
+// funzione per chiamata ajax per film e serie tv
+function ajaxCall (input) {
   $.ajax({
     url: 'https://api.themoviedb.org/3/search/movie',
     data: {
@@ -40,7 +40,25 @@ function ajaxMovies (input) {
     success: function (data) {
       // mi salvo tutti i risultati in una var
       var movies = data.results;
-      print (movies);
+      printMovies (movies);
+    },
+    error: function (error) {
+      alert('Errore:', error);
+    }
+  });
+  $.ajax({
+    url: 'https://api.themoviedb.org/3/search/tv',
+    data: {
+      language: 'it-IT',
+      api_key: 'dcf0b40295aecc1f88fc8cb48b159280',
+      // come query l'input dell'utente
+      query: input
+    },
+    method: 'GET',
+    success: function (data) {
+      // mi salvo tutti i risultati in una var
+      var series = data.results;
+      printSeries (series);
     },
     error: function (error) {
       alert('Errore:', error);
@@ -48,16 +66,15 @@ function ajaxMovies (input) {
   });
 }
 
-function print (movies) {
+// funzione per stampa dei film
+function printMovies (elements) {
   // compilo handlebars
   var source = $('#movie-template').html();
   var template = Handlebars.compile(source);
   // ciclo per ogni risultato
-  movies.forEach(function(item) {
+  elements.forEach(function(element) {
     // recupero la valutazione e trasformo in 0/5
-    var rating = item.vote_average / 2;
-    console.log(rating);
-    
+    var rating = element.vote_average / 2;
     var stars = '';
     // inserisco il numero di stelle della valutazione
     for (var i = 0; i < rating; i++) {
@@ -69,27 +86,44 @@ function print (movies) {
       i++;
     }
     // inserisco nel template e appendo in pagina
-    var movie = {
-      title: item.title,
-      original_title: item.original_title,
-      original_language: item.original_language,
+    var item = {
+      title: element.title,
+      original_title: element.original_title,
+      original_language: element.original_language,
       vote_average: stars
     }
-    var html = template(movie);
+    var html = template(item);
     $('main').append(html);
   });
 }
 
-
-
-
-
-
-
-// API
-// url: 'https://api.themoviedb.org/3/search/movie'
-// data {
-//   language: it-IT,
-//   api_key: dcf0b40295aecc1f88fc8cb48b159280,
-//   query:
-// }
+// funzione per stampa delle serie
+function printSeries (elements) {
+  // compilo handlebars
+  var source = $('#movie-template').html();
+  var template = Handlebars.compile(source);
+  // ciclo per ogni risultato
+  elements.forEach(function(element) {
+    // recupero la valutazione e trasformo in 0/5
+    var rating = element.vote_average / 2;
+    var stars = '';
+    // inserisco il numero di stelle della valutazione
+    for (var i = 0; i < rating; i++) {
+      stars += '<i class="fas fa-star"></i>';
+    }
+    // inserisco le stelle vuote per arrivare al massimo della valuazione
+    while (i < 5) {
+      stars += '<i class="far fa-star"></i>';
+      i++;
+    }
+    // inserisco nel template e appendo in pagina
+    var item = {
+      title: element.name,
+      original_title: element.original_name,
+      original_language: element.original_language,
+      vote_average: stars
+    }
+    var html = template(item);
+    $('main').append(html);
+  });
+}

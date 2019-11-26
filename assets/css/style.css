@@ -61,7 +61,7 @@ main {
   flex-wrap: wrap;
 }
 
-.movie {
+.item {
   margin: 20px;
   width: calc((100% - 120px) / 3);
   padding: 25px 10px;
@@ -69,10 +69,10 @@ main {
   color: #fff;
 }
 
-.movie li {
+.item li {
   font-weight: 200;
 }
 
-.movie li span {
+.item li span {
   font-weight: 1000;
 }
