@@ -40,7 +40,7 @@ function ajaxCall (input) {
     success: function (data) {
       // mi salvo tutti i risultati in una var
       var movies = data.results;
-      printMovies (movies);
+      print ('movie', movies);
     },
     error: function (error) {
       alert('Errore:', error);
@@ -58,7 +58,7 @@ function ajaxCall (input) {
     success: function (data) {
       // mi salvo tutti i risultati in una var
       var series = data.results;
-      printSeries (series);
+      print ('series', series);
     },
     error: function (error) {
       alert('Errore:', error);
@@ -67,7 +67,7 @@ function ajaxCall (input) {
 }
 
 // funzione per stampa dei film
-function printMovies (elements) {
+function print (type, elements) {
   // compilo handlebars
   var source = $('#movie-template').html();
   var template = Handlebars.compile(source);
@@ -98,62 +98,28 @@ function printMovies (elements) {
     } else {
       var poster = 'https://image.tmdb.org/t/p/w342/' + element.poster_path;
     }
-    // inserisco nel template e appendo in pagina
-    var item = {
-      poster: poster,
-      title: element.title,
-      original_title: element.original_title,
-      original_language: lang,
-      vote_average: stars,
-      overview: element.overview
-    }
-    var html = template(item);
-    $('main').append(html);
-  });
-}
-
-// funzione per stampa delle serie
-function printSeries (elements) {
-  // compilo handlebars
-  var source = $('#movie-template').html();
-  var template = Handlebars.compile(source);
-  // ciclo per ogni risultato
-  elements.forEach(function(element) {
-    // recupero la valutazione e trasformo in 0/5
-    var rating = element.vote_average / 2;
-    var stars = '';
-    // inserisco il numero di stelle della valutazione
-    for (var i = 0; i < rating; i++) {
-      stars += '<i class="fas fa-star"></i>';
-    }
-    // inserisco le stelle vuote per arrivare al massimo della valuazione
-    while (i < 5) {
-      stars += '<i class="far fa-star"></i>';
-      i++;
-    }
-    // recupero la lingua originale e se possibile assegno la bandiera
-    var lang = element.original_language;
-    if (lang == 'en') {
-      lang = '<img class="flag" src="assets/img/uk-flag.png">'
-    } else if (lang == 'it') {
-      lang = '<img class="flag" src="assets/img/it-flag.png">'
-    }
-    // recupero l'immagine del poster
-    if (element.poster_path === null) {
-      var poster = 'assets/img/empty-poster.jpg';
-    } else {
-      var poster = 'https://image.tmdb.org/t/p/w342/' + element.poster_path;
+    // recupero tutti i valori da inserire in pagina in base a film o serie
+    if (type = 'movie') {
+      var item = {
+        poster: poster,
+        title: element.title,
+        original_title: element.original_title,
+        original_language: lang,
+        vote_average: stars,
+        overview: element.overview
+      }
+    } else if (type = 'series') {
+      var item = {
+        poster: poster,
+        title: element.name,
+        original_title: element.original_name,
+        original_language: lang,
+        vote_average: stars,
+        overview: element.overview
+      }
     }
     // inserisco nel template e appendo in pagina
-    var item = {
-      poster: poster,
-      title: element.name,
-      original_title: element.original_name,
-      original_language: lang,
-      vote_average: stars,
-      overview: element.overview
-    }
     var html = template(item);
-    $('main').append(html);
+    $('main').append(html);  
   });
 }
