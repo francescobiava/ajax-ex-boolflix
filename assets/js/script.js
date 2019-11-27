@@ -69,7 +69,7 @@ function ajaxCall (input) {
 // funzione per stampa dei film
 function print (type, elements) {
   // compilo handlebars
-  var source = $('#movie-template').html();
+  var source = $('#item-template').html();
   var template = Handlebars.compile(source);
   // ciclo per ogni risultato
   elements.forEach(function(element) {
@@ -87,10 +87,9 @@ function print (type, elements) {
     }
     // recupero la lingua originale e se possibile assegno la bandiera
     var lang = element.original_language;
-    if (lang == 'en') {
-      lang = '<img class="flag" src="assets/img/uk-flag.png">'
-    } else if (lang == 'it') {
-      lang = '<img Class="flag" src="assets/img/it-flag.png">'
+    var flags = ['en', 'it'];
+    if (flags.includes(lang)) {
+      lang = '<img class="flag" src="assets/img/' + lang + '-flag.png">';
     }
     // recupero l'immagine del poster
     if (element.poster_path === null) {
@@ -107,7 +106,7 @@ function print (type, elements) {
         original_language: lang,
         vote_average: stars,
         overview: element.overview
-      }
+      };
     } else if (type = 'series') {
       var item = {
         poster: poster,
@@ -116,7 +115,7 @@ function print (type, elements) {
         original_language: lang,
         vote_average: stars,
         overview: element.overview
-      }
+      };
     }
     // inserisco nel template e appendo in pagina
     var html = template(item);
