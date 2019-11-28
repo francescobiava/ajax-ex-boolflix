@@ -13,9 +13,13 @@ function search () {
     // recupero l'input dell'utente e svuoto la casella
     var input = $('#input-search').val();
     $('#input-search').val('');
+    // assegno a variabili gli url delle due chiamate ajax
+    var urlMovies = 'https://api.themoviedb.org/3/search/movie';
+    var urlSeries = 'https://api.themoviedb.org/3/search/tv';
     // se l'input non è vuoto faccio la ricerca
     if (input !== '') {
-      ajaxCall(input);
+      ajaxCall(urlMovies, input, 'movies');
+      ajaxCall(urlSeries, input, 'series');
     }
   });
   // quando premo enter nell'input clicco su search
@@ -27,9 +31,9 @@ function search () {
 }
 
 // funzione per chiamata ajax per film e serie tv
-function ajaxCall (input) {
+function ajaxCall (url, input, type) {  
   $.ajax({
-    url: 'https://api.themoviedb.org/3/search/movie',
+    url: url,
     data: {
       language: 'it-IT',
       api_key: 'dcf0b40295aecc1f88fc8cb48b159280',
@@ -39,26 +43,8 @@ function ajaxCall (input) {
     method: 'GET',
     success: function (data) {
       // mi salvo tutti i risultati in una var
-      var movies = data.results;
-      print ('movie', movies);
-    },
-    error: function (error) {
-      alert('Errore:', error);
-    }
-  });
-  $.ajax({
-    url: 'https://api.themoviedb.org/3/search/tv',
-    data: {
-      language: 'it-IT',
-      api_key: 'dcf0b40295aecc1f88fc8cb48b159280',
-      // come query l'input dell'utente
-      query: input
-    },
-    method: 'GET',
-    success: function (data) {
-      // mi salvo tutti i risultati in una var
-      var series = data.results;
-      print ('series', series);
+      var elements = data.results;
+      print (type, elements);
     },
     error: function (error) {
       alert('Errore:', error);
@@ -98,7 +84,7 @@ function print (type, elements) {
       var poster = 'https://image.tmdb.org/t/p/w342/' + element.poster_path;
     }
     // recupero tutti i valori da inserire in pagina in base a film o serie
-    if (type = 'movie') {
+    if (type == 'movies') {
       var item = {
         poster: poster,
         title: element.title,
@@ -107,7 +93,7 @@ function print (type, elements) {
         vote_average: stars,
         overview: element.overview
       };
-    } else if (type = 'series') {
+    } else if (type == 'series') {
       var item = {
         poster: poster,
         title: element.name,
