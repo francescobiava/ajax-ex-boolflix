@@ -61,13 +61,21 @@ main {
   flex-wrap: wrap;
 }
 
-.item {
+.box {
   margin: 20px;
   width: 350px;
   height: 500px;
+  position: relative;
+}
+
+.box:hover {
+  cursor: pointer;
+}
+
+.item {
+  height: 500px;
   padding: 10px;
   color: #fff;
-  position: relative;
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -85,26 +93,24 @@ main {
   font-weight: 1000;
 }
 
-.item .poster {
+.item .overview {
+  font-size: 0.8em;
+}
+
+.poster {
   position: absolute;
   top: 0;
   left: 0;
   transition: all 0.5s;
 }
 
-.item .poster:hover {
-  cursor: pointer;
-  opacity: 0;
-}
-
-.item .poster img {
+.poster img {
   width: 350px;
   height: 500px;
 }
 
-.item .overview {
-  font-size: 0.8em;
-  overflow-y: auto;
+.box:hover .poster {
+  display: none;
 }
 
 .flag {
