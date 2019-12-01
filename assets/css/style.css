@@ -50,6 +50,10 @@ header .logo {
   color: #fff;
 }
 
+#search:hover {
+  cursor: pointer;
+}
+
 /* main */
 main {
   height: calc(100vh - 70px);

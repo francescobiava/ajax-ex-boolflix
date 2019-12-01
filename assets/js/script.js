@@ -1,33 +1,33 @@
 $(document).ready(function () {
   
-  search();
+  // al click su search esegue la funzione
+  $('#search').click(search);
 
-});
-
-// FUNCTIONS
-// funzione al click sul bottone search
-function search () {
-  $('#search').click(function () {
-    // pulisco la pagina
-    $('main').html('');
-    // recupero l'input dell'utente e svuoto la casella
-    var input = $('#input-search').val();
-    $('#input-search').val('');
-    // assegno a variabili gli url delle due chiamate ajax
-    var urlMovies = 'https://api.themoviedb.org/3/search/movie';
-    var urlSeries = 'https://api.themoviedb.org/3/search/tv';
-    // se l'input non è vuoto faccio la ricerca
-    if (input !== '') {
-      ajaxCall(urlMovies, input, 'movies');
-      ajaxCall(urlSeries, input, 'series');
-    }
-  });
   // quando premo enter nell'input clicco su search
   $('#input-search').keypress(function (event) {
     if (event.keyCode == 13) {
       $('#search').click();
     }
   });
+
+});
+
+// FUNCTIONS
+// funzione al click sul bottone search
+function search () {
+  // pulisco la pagina
+  $('main').html('');
+  // recupero l'input dell'utente e svuoto la casella
+  var input = $('#input-search').val();
+  $('#input-search').val('');
+  // assegno a variabili gli url delle due chiamate ajax
+  var urlMovies = 'https://api.themoviedb.org/3/search/movie';
+  var urlSeries = 'https://api.themoviedb.org/3/search/tv';
+  // se l'input non è vuoto faccio la ricerca
+  if (input !== '') {
+    ajaxCall(urlMovies, input, 'movies');
+    ajaxCall(urlSeries, input, 'series');
+  }
 }
 
 // funzione per chiamata ajax per film e serie tv
